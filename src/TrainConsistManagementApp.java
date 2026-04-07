@@ -2,64 +2,64 @@ import java.util.Arrays;
 
 public class TrainConsistManagementApp {
 
-    // Custom Binary Search Implementation for Strings
-    public static int binarySearch(String[] sortedIds, String key) {
-        int low = 0;
-        int high = sortedIds.length - 1;
-
-        while (low <= high) {
-            int mid = low + (high - low) / 2;
-            int comparison = key.compareTo(sortedIds[mid]);
-
-            if (comparison == 0) {
-                return mid; // Key found
-            } else if (comparison > 0) {
-                // Key is greater (alphabetically after), ignore left half
-                low = mid + 1;
-            } else {
-                // Key is smaller (alphabetically before), ignore right half
-                high = mid - 1;
+    // Linear Search Implementation for Strings
+    public static boolean linearSearch(String[] ids, String searchKey) {
+        for (int i = 0; i < ids.length; i++) {
+            if (ids[i].equals(searchKey)) {
+                return true; // Match found, search stops
             }
         }
-        return -1; // Key not found
+        return false; // Not found
     }
 
-    public static void testSearch_KeyFoundInMiddle() {
-        System.out.println("[Test 1: testSearch_KeyFoundInMiddle]");
-        String[] ids = {"B101", "B102", "B103", "B104", "B105"};
-        String key = "B103";
+    public static void testSearch_BogieFound() {
+        System.out.println("[Test 1: testSearch_BogieFound]");
+        String[] ids = {"BG101", "BG205", "BG309", "BG412", "BG550"};
+        String key = "BG309";
         System.out.println("Array: " + Arrays.toString(ids));
-        System.out.println("Searching for: " + key);
-        int index = binarySearch(ids, key);
-        System.out.println("Result: Found at index " + index + "\n");
+        System.out.println("Searching for: " + key + " -> Result: " + linearSearch(ids, key) + "\n");
     }
 
-    public static void testSearch_KeyNotFound() {
-        System.out.println("[Test 2: testSearch_KeyNotFound]");
-        String[] ids = {"B101", "B102", "B103", "B104", "B105"};
-        String key = "B999";
+    public static void testSearch_BogieNotFound() {
+        System.out.println("[Test 2: testSearch_BogieNotFound]");
+        String[] ids = {"BG101", "BG205", "BG309", "BG412", "BG550"};
+        String key = "BG999";
         System.out.println("Array: " + Arrays.toString(ids));
-        System.out.println("Searching for: " + key);
-        int index = binarySearch(ids, key);
-        System.out.println("Result: " + (index != -1 ? "Found at index " + index : "Not found") + " (-1)\n");
+        System.out.println("Searching for: " + key + " -> Result: " + linearSearch(ids, key) + "\n");
     }
 
-    public static void testSearch_KeyFoundAtBoundaries() {
-        System.out.println("[Test 3: testSearch_KeyFoundAtBoundaries]");
-        String[] ids = {"B101", "B102", "B103", "B104", "B105"};
-        String keyStart = "B101";
-        String keyEnd = "B105";
+    public static void testSearch_FirstElementMatch() {
+        System.out.println("[Test 3: testSearch_FirstElementMatch]");
+        String[] ids = {"BG101", "BG205", "BG309", "BG412", "BG550"};
+        String key = "BG101";
         System.out.println("Array: " + Arrays.toString(ids));
-        System.out.println("Searching for: " + keyStart + " -> Result: Found at index " + binarySearch(ids, keyStart));
-        System.out.println("Searching for: " + keyEnd + " -> Result: Found at index " + binarySearch(ids, keyEnd) + "\n");
+        System.out.println("Searching for: " + key + " -> Result: " + linearSearch(ids, key) + "\n");
+    }
+
+    public static void testSearch_LastElementMatch() {
+        System.out.println("[Test 4: testSearch_LastElementMatch]");
+        String[] ids = {"BG101", "BG205", "BG309", "BG412", "BG550"};
+        String key = "BG550";
+        System.out.println("Array: " + Arrays.toString(ids));
+        System.out.println("Searching for: " + key + " -> Result: " + linearSearch(ids, key) + "\n");
+    }
+
+    public static void testSearch_SingleElementArray() {
+        System.out.println("[Test 5: testSearch_SingleElementArray]");
+        String[] ids = {"BG101"};
+        String key = "BG101";
+        System.out.println("Array: " + Arrays.toString(ids));
+        System.out.println("Searching for: " + key + " -> Result: " + linearSearch(ids, key) + "\n");
     }
 
     public static void main(String[] args) {
         System.out.println("=== Train Consist Management App ===");
-        System.out.println("--- UC19: Binary Search for Bogie ID ---\n");
+        System.out.println("--- UC18: Linear Search for Bogie ID (Array-Based Searching) ---\n");
 
-        testSearch_KeyFoundInMiddle();
-        testSearch_KeyNotFound();
-        testSearch_KeyFoundAtBoundaries();
+        testSearch_BogieFound();
+        testSearch_BogieNotFound();
+        testSearch_FirstElementMatch();
+        testSearch_LastElementMatch();
+        testSearch_SingleElementArray();
     }
 }
